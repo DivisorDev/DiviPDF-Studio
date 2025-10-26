@@ -1,310 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>DiviPDF Studio - All-in-one Free Tools</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DiviPDF - All-in-one Free PDF and Image Tools</title>
   <style>
-    body {
-      min-height: 100vh;
-      font-family: 'Segoe UI',Arial,sans-serif;
-      margin: 0;
-      background: linear-gradient(120deg, #222941 0%, #29405c 100%);
-      color: #e5f1fa;
+    :root {
+      --main-bg: #181f29;
+      --card-bg: #222C3A;
+      --primary: #38b6ff;
+      --secondary: #495475;
+      --line: #38b6ff44;
     }
-    header {
-      text-align: center;
-      padding: 42px 20px 12px 20px;
+    body { margin: 0; padding: 0; background: var(--main-bg); color: #eee; font-family: "Segoe UI",Arial,sans-serif;}
+    .centered { text-align: center; }
+    .header {
+      font-size: 2.7em;margin-top: 36px;
+      color: var(--primary);text-shadow: 0 2px 12px #101d3e66;
+      font-weight: bold;letter-spacing: 1px;
     }
-    header h1 {
-      color: #54bfff;
-      letter-spacing: 2px;
-      font-size: 2.6rem;
-      margin-bottom: 8px;
-      font-weight: 700;
-      text-shadow: 0 1px #000c;
+    .subtitle { color: #aad7ff; margin: 10px auto 32px; font-size: 1.16em;}
+    .content { display: flex; justify-content:center; gap:48px; margin: 0 auto 22px; }
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 28px 28px 12px 28px;
+      box-shadow: 0 2px 18px #2224;
+      min-width: 280px; max-width: 320px;
     }
-    header p {
-      margin: 0;
-      color: #738aad;
-      font-size: 1.11rem;
-    }
-    main {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 38px;
-      margin: 36px 0 25px 0;
-    }
-    .panel {
-      background:rgba(30,40,65,0.96);
-      border-radius: 12px;
-      min-width: 290px;
-      max-width: 350px;
-      padding: 24px 32px 32px;
-      box-shadow:0 0 28px #0005;
-      border: 0.5px solid #3d5c7c;
-    }
-    .panel h2 {
-      color: #68caff;
-      font-size: 1.25rem;
-      letter-spacing: 1.5px;
-      margin:0 0 12px 0;
-      font-weight: 600;
-      border-bottom: 1px solid #29406a;
-      padding-bottom: 6px;
-      text-align:center;
-    }
-    .tool-list {padding:0;margin:0 0 9px 0;}
+    .card h3 { color:var(--primary); margin: 0 0 14px 0; border-bottom: 1px solid var(--line); padding-bottom: 6px;}
+    .tool-list { list-style: none; padding:0; margin:0;}
     .tool-list li {
-      list-style:none;
-      margin:18px 0;
-      text-align:left;
+      margin-bottom: 11px; color: #eaefff; font-size: 1.07em; cursor:pointer;
+      border-radius: 5px; padding: 5px 10px 5px 3px; transition:.18s background;
+      border-left: 3px solid #38b6ff22;
     }
-    .tool-list a {
-      color:#fff;
-      text-decoration: none;
-      font-size:1.07em;
-      background:linear-gradient(90deg,#63d5ff 85%,#3089c7 100%);
-      background-size: 0 2px;
-      background-position: left bottom;
-      background-repeat: no-repeat;
-      transition: background-size 0.35s;
-      border-radius:4px;
-      padding:3px 5px;
+    .tool-list li:hover { background: #283a53b5; }
+    .divider { height:2px; background:var(--line); margin:35px auto 25px auto; max-width:620px; border-radius:2px;}
+    .form-area { text-align: center; margin: 20px 0 18px 0;}
+    .form-box {
+      background: var(--card-bg);
+      border-radius: 11px;
+      box-shadow: 0 1px 12px #18326a88;
+      padding: 26px 24px 18px 24px;
+      max-width:370px; 
+      margin:0 auto;
+      display:inline-block;
     }
-    .tool-list a:hover {
-      background-size: 100% 2px;
-      color: #44dbf3;
+    .form-box label { display:block; margin-top:7px;color:#aad7ff;}
+    .form-box input, .form-box select, .form-box button {
+      margin-top:7px; border:none; outline: none; font-size:1.04em; 
+      border-radius:5px; padding:8px 10px; background:#171e2b;color:#fff;
+      margin-bottom: 8px;
     }
-    .form-modal-bg {
-      position:fixed;left:0;top:0;width:100vw;height:100vh;background:#000c;
-      z-index:9;display:flex;align-items:center;justify-content:center;
+    .form-box button { background: var(--primary); color:#fff; font-weight:600; padding:9px 20px;cursor:pointer;transition:.21s background;}
+    .form-box button:hover{background: #3293cc;}
+    .resultmsg {margin-top:15px;}
+    .success,.error,.processing{
+      padding:8px 10px;border-radius:6px;display:inline-block;font-size:.95em;margin-bottom:14px;
     }
-    .modal-box {
-      background:#1e2340;
-      border-radius:14px;
-      padding:32px 28px;
-      color:#e1ecf5;
-      max-width:430px;
-      min-width: 310px;
-      box-shadow:0 6px 64px #0009;
-      position: relative;
+    .success{background:#244f29;color:#bcfcca;}
+    .error{background:#792424;color:#ffc4c4;}
+    .processing{background:#444813;color:#ffeead;}
+    .footer {
+      text-align:center;margin-top:32px;font-size:.99em;padding:16px 0 10px 0;color:#5cd7fc80;
+      border-top:1px solid var(--line);
     }
-    .modal-title {font-size:1.3rem;color:#48d8ff;margin-bottom:16px;}
-    .modal-close {position:absolute;right:18px;top:15px;cursor:pointer;font-size:22px;color:#afdfff;background:none;border:none;}
-    .modal-box form {display:flex;flex-direction:column;font-size:1.07em}
-    .modal-box input[type="file"], .modal-box select, .modal-box input[type="number"] {
-      margin-bottom:16px;font-size:1.01em;padding:4px 7px;background:#242b4a;color:#eafff8;border-radius:4px;border: 1px solid #38507d;
-    }
-    .modal-box button{margin-top:7px;background:#38c2ff;color:#142435;font-weight:700;font-size:1.05em;border:0;border-radius:5px;padding:7px 0;cursor:pointer;box-shadow:0 1px #0004;}
-    .modal-box button:hover{background:#1b98d8;}
-    .msg {margin-top:10px;}
-    .success{background:#175a2b;color:#b6ffd7;padding:7px 8px 7px 8px;border-radius:5px;}
-    .error{background:#843646;color:#ffdeda;padding:7px 8px 7px 8px;border-radius:5px;}
-    .processing{background:#2b395c;color:#b7f4ff;padding:7px 8px 7px 8px;border-radius:5px;}
-    footer {
-      text-align:center;
-      font-size: 15px;
-      padding:12px 0 6px 0;
-      color:#82aed0;
-      background: linear-gradient(90deg,#294264 60%,#222941 100%);
-      border-top: 1.4px solid #315283;margin-top:44px;letter-spacing:.5px;
-    }
-    .branding { color: #3ee1ff; font-weight: 700;font-size:17px;}
-    .credits { color: #a5d2fc; font-size:14px; }
-    /* Responsive */
-    @media (max-width: 800px) { main { flex-direction:column; gap:18px;} .panel{max-width:99vw;} }
+    .footer span { color:#aad7ff; font-weight:500; }
+    .credit a { color:var(--primary);text-decoration:none; }
+    @media (max-width:900px){ .content{flex-direction:column; gap:18px;} .card{max-width:none;min-width:auto;}}
+    @media (max-width:500px){ .form-box,.card{padding:10px 2vw;} .header{font-size:2em;}}
   </style>
 </head>
 <body>
-  <header>
-    <h1>DiviPDF</h1>
-    <p>All-in-one Free PDF and Image Tools</p>
-  </header>
-  <main>
-    <div class="panel">
-      <h2>PDF Tools</h2>
+  <div class="centered">
+    <div class="header">DiviPDF</div>
+    <div class="subtitle">All-in-one Free PDF and Image Tools</div>
+  </div>
+  <div class="divider"></div>
+  <div class="content">
+    <div class="card">
+      <h3>PDF Tools</h3>
       <ul class="tool-list">
-        <li><a href="#" onclick="openModal('pdfToWord')">PDF to Word</a></li>
-        <li><a href="#" onclick="openModal('wordToPdf')">Word to PDF</a></li>
-        <li><a href="#" onclick="openModal('mergePdf')">Merge PDF</a></li>
-        <li><a href="#" onclick="openModal('compressPdf')">Compress PDF</a></li>
+        <li onclick="showForm('pdfToWord')">PDF to Word</li>
+        <li onclick="showForm('wordToPdf')">Word to PDF</li>
+        <li onclick="showForm('mergePdf')">Merge PDF</li>
+        <li onclick="showForm('compressPdf')">Compress PDF</li>
+        <li onclick="showForm('removeWatermark')">Watermark Remover</li>
       </ul>
     </div>
-    <div class="panel">
-      <h2>Image Tools</h2>
+    <div class="card">
+      <h3>Image Tools</h3>
       <ul class="tool-list">
-        <li><a href="#" onclick="openModal('imageCompress')">Image Compress (JPG/PNG/WEBP)</a></li>
-        <li><a href="#" onclick="openModal('imageResize')">Image Resize (Custom Dimensions)</a></li>
-        <li><a href="#" onclick="openModal('imageToPdf')">Image to PDF</a></li>
-        <li><a href="#" onclick="openModal('convertImgFormat')">Convert Image Format (JPEG/PNG/WEBP)</a></li>
-        <li><a href="#" onclick="openModal('removeBackground')">Remove Background</a></li>
-        <li><a href="#" onclick="openModal('removeWatermark')">Watermark Remover</a></li>
+        <li onclick="showForm('imageCompress')">Image Compress (JPG/PNG/WEBP)</li>
+        <li onclick="showForm('imageResize')">Image Resize (Custom Dimensions)</li>
+        <li onclick="showForm('imageToPdf')">Image to PDF</li>
+        <li onclick="showForm('convertImgFormat')">Convert Image Format (JPG/PNG/WEBP)</li>
+        <li style="opacity:.7;">Remove Background <span style="color:#abd;">(Coming Soon)</span></li>
       </ul>
     </div>
-  </main>
+  </div>
+  <div class="divider"></div>
 
-  <!-- Footer -->
-  <footer>
-    <span class="branding">DiviPDF © 2025 - Powered by Divisor Studio</span> |
-    <span class="credits">Free. Fast. Reliable. Built With M Qasim’s Divisor.</span>
-  </footer>
-
-  <!-- Modal Forms (rendered dynamically) -->
-  <div id="modal-root"></div>
+  <div class="form-area" id="formArea"></div>
+  <div class="footer">
+    DiviPDF &copy; 2025 &middot; Powered by <span>Divisor Studio</span>.
+    <br class="credit"/> Free, Fast, Reliable. <span>Built With ❤️ by M Qasim Siddiqui</span>
+  </div>
 
 <script>
 const API = 'https://divipdf-2.onrender.com';
-
-const toolFormHtml = {
-pdfToWord: {
-  title: "PDF to Word",
-  html: `<form data-ep="/pdf-to-word/" enctype="multipart/form-data">
-  <input type="file" name="file" accept=".pdf" required>
-  <button>Convert PDF to Word</button>
-  <div class="msg"></div>
-  </form>`
-},
-wordToPdf: {
-  title: "Word to PDF",
-  html: `<form data-ep="/word-to-pdf/" enctype="multipart/form-data">
-  <input type="file" name="file" accept=".doc,.docx" required>
-  <button>Convert Word to PDF</button>
-  <div class="msg"></div>
-  </form>`
-},
-mergePdf: {
-  title: "Merge PDF",
-  html: `<form data-ep="/merge-pdf/" enctype="multipart/form-data">
-  <input type="file" name="files" accept=".pdf" multiple required>
-  <button>Merge PDFs</button>
-  <div class="msg"></div>
-  </form>`
-},
-compressPdf: {
-  title: "Compress PDF",
-  html: `<form data-ep="/compress-pdf/" enctype="multipart/form-data">
-  <input type="file" name="file" accept=".pdf" required>
-  <button>Compress PDF</button>
-  <div class="msg"></div>
-  </form>`
-},
-imageCompress: {
-  title: "Image Compress",
-  html: `<form data-ep="/image-compress/" enctype="multipart/form-data">
-  <input type="file" name="file" accept="image/*" required>
-  <button>Compress Image</button>
-  <div class="msg"></div>
-  </form>`
-},
-imageResize: {
-  title: "Image Resize",
-  html: `<form data-ep="/image-resize/" enctype="multipart/form-data">
-  <input type="file" name="file" accept="image/*" required><br>
-  Width: <input style="width:65px" type="number" name="width" value="800" required>
-  Height: <input style="width:65px" type="number" name="height" value="600" required>
-  <button>Resize Image</button>
-  <div class="msg"></div>
-  </form>`
-},
-imageToPdf: {
-  title: "Image to PDF",
-  html: `<form data-ep="/image-to-pdf/" enctype="multipart/form-data">
-  <input type="file" name="file" accept="image/*" required>
-  <button>Convert to PDF</button>
-  <div class="msg"></div>
-  </form>`
-},
-convertImgFormat: {
-  title: "Convert Image Format",
-  html: `<form data-ep="/convert-image-format/" enctype="multipart/form-data">
-  <input type="file" name="file" accept="image/*" required>
-  <label>Format:
-    <select name="format">
-      <option value="JPEG">JPEG</option>
-      <option value="PNG">PNG</option>
-      <option value="WEBP">WEBP</option>
-    </select>
-  </label>
-  <button>Convert</button>
-  <div class="msg"></div>
-  </form>`
-},
-removeWatermark: {
-  title: "Remove Watermark (Beta)",
-  html: `<form data-ep="/remove-watermark/" enctype="multipart/form-data">
-  <input type="file" name="file" accept=".pdf" required>
-  <button>Remove Watermark</button>
-  <div class="msg"></div>
-  </form>`
-},
-removeBackground: {
-  title: "Remove Background (Coming Soon)",
-  html: `<form>
-  <input type="file" name="file" accept="image/*" disabled>
-  <button disabled>Remove Background</button>
-  <div class="msg">This feature will be available soon!</div>
-  </form>`
-}
+let formTemplates = {
+pdfToWord:`<div class="form-box"><h3>PDF to Word</h3>
+<form id="pdfToWordForm"><input type="file" name="file" accept=".pdf" required><br/>
+<button>Convert PDF to Word</button></form>
+<div class="resultmsg" id="msg_pdfToWord"></div></div>`,
+wordToPdf:`<div class="form-box"><h3>Word to PDF</h3>
+<form id="wordToPdfForm"><input type="file" name="file" accept=".doc,.docx" required><br/>
+<button>Convert Word to PDF</button></form>
+<div class="resultmsg" id="msg_wordToPdf"></div></div>`,
+mergePdf:`<div class="form-box"><h3>Merge PDFs</h3>
+<form id="mergePdfForm"><input type="file" name="files" accept=".pdf" multiple required><br/>
+<button>Merge PDFs</button></form>
+<div class="resultmsg" id="msg_mergePdf"></div></div>`,
+compressPdf:`<div class="form-box"><h3>Compress PDF</h3>
+<form id="compressPdfForm"><input type="file" name="file" accept=".pdf" required><br/>
+<button>Compress PDF</button></form>
+<div class="resultmsg" id="msg_compressPdf"></div></div>`,
+removeWatermark:`<div class="form-box"><h3>Remove PDF Watermark</h3>
+<form id="removeWatermarkForm"><input type="file" name="file" accept=".pdf" required><br/>
+<button>Remove Watermark</button></form>
+<div class="resultmsg" id="msg_removeWatermark"></div></div>`,
+imageCompress:`<div class="form-box"><h3>Image Compress</h3>
+<form id="imageCompressForm"><input type="file" name="file" accept="image/*" required><br/>
+<button>Compress Image</button></form>
+<div class="resultmsg" id="msg_imageCompress"></div></div>`,
+imageResize:`<div class="form-box"><h3>Resize Image (JPG/PNG/WEBP)</h3>
+<form id="imageResizeForm"><input type="file" name="file" accept="image/*" required>
+<br/>Width: <input type="number" name="width" value="800" required style="width:60px;">
+Height: <input type="number" name="height" value="600" required style="width:60px;">
+<br/><button>Resize</button></form>
+<div class="resultmsg" id="msg_imageResize"></div></div>`,
+imageToPdf:`<div class="form-box"><h3>Image to PDF</h3>
+<form id="imageToPdfForm"><input type="file" name="file" accept="image/*" required><br/>
+<button>Convert Image to PDF</button></form>
+<div class="resultmsg" id="msg_imageToPdf"></div></div>`,
+convertImgFormat:`<div class="form-box"><h3>Convert Image Format</h3>
+<form id="convertImgFormatForm"><input type="file" name="file" accept="image/*" required>
+Format: <select name="format">
+<option value="JPEG">JPEG</option><option value="PNG">PNG</option><option value="WEBP">WEBP</option>
+</select><br/><button>Convert</button></form>
+<div class="resultmsg" id="msg_convertImgFormat"></div></div>`
 };
 
-function openModal(tool){
-  const modal = document.createElement('div');
-  modal.className = 'form-modal-bg';
-  modal.innerHTML = `<div class="modal-box">
-    <button class="modal-close" onclick="closeModal()" title="Close">&times;</button>
-    <div class="modal-title">${toolFormHtml[tool].title}</div>
-    ${toolFormHtml[tool].html}
-  </div>`;
-  document.getElementById('modal-root').innerHTML = "";
-  document.getElementById('modal-root').appendChild(modal);
-  // Add logic for working forms:
-  const form = modal.querySelector('form');
-  if(form && form.dataset.ep){
-    form.onsubmit = async function(e){
-      e.preventDefault();
-      const msgbox = this.querySelector('.msg');
-      msgbox.innerHTML = '<span class="processing">Processing... Please wait</span>';
-      const formData = new FormData();
-      for(const el of this.elements){
-        if(el.type==="file" && el.files.length) formData.append(el.name, el.files.length>1?[...el.files]:el.files[0]);
-        else if(el.type!=="file" && el.name) formData.append(el.name, el.value);
-      }
-      try{
-        const opts={method:'POST',body:formData};
-        if(form.name==="files") opts.body = form.elements.files.files;
-        const res = await fetch(API + form.dataset.ep, opts);
-        if(res.ok){
-          const disposition = res.headers.get('content-disposition') || '';
-          let filename = (disposition.match(/filename="?(.+)"?$/)||[null,"outputfile"])[1];
-          const blob = await res.blob();
-          const link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          link.download = filename;
-          document.body.appendChild(link);
-          link.click();
-          setTimeout(()=>{URL.revokeObjectURL(link.href);link.remove();},700);
-          msgbox.innerHTML = `<span class="success">✅ File downloaded!</span>`;
-        }else{
-          let errorMsg = "Server error";
-          try { let err = await res.json(); errorMsg = err.detail||errorMsg; } catch {}
-          msgbox.innerHTML = `<span class="error">${errorMsg}</span>`;
-        }
-      }catch(err){
-        msgbox.innerHTML = `<span class="error">Failed: ${err.message}</span>`;
-      }
-    };
-  }
+function showForm(formKey) {
+  let html = formTemplates[formKey];
+  document.getElementById("formArea").innerHTML = html || "";
+  setTimeout(()=>bindFormHandler(formKey),80);
 }
 
-function closeModal(){
-  document.getElementById('modal-root').innerHTML = "";
+function fileDownload(blob, fname) {
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = fname;
+  document.body.appendChild(link);
+  link.click();
+  setTimeout(()=>{URL.revokeObjectURL(link.href);link.remove();},500);
 }
 
-window.onclick = function(ev){
-  if(ev.target.className=="form-modal-bg") closeModal();
-};
+function bindFormHandler(formKey) {
+  // Map: form id, endpoint, special fields
+  const info = {
+    pdfToWord:{id:"pdfToWordForm",ep:"/pdf-to-word/", fn:"file", dn:".docx"},
+    wordToPdf:{id:"wordToPdfForm",ep:"/word-to-pdf/", fn:"file", dn:".pdf"},
+    mergePdf:{id:"mergePdfForm",ep:"/merge-pdf/", fn:"files",multi:true, dn:"merged.pdf"},
+    compressPdf:{id:"compressPdfForm",ep:"/compress-pdf/", fn:"file", dn:"_compressed.pdf"},
+    removeWatermark:{id:"removeWatermarkForm",ep:"/remove-watermark/",fn:"file",dn:"no-watermark.pdf"},
+    imageCompress:{id:"imageCompressForm",ep:"/image-compress/",fn:"file",dn:"compressed.jpg"},
+    imageResize:{id:"imageResizeForm",ep:"/image-resize/",fn:"file",dn:"resized.png",extra:["width","height"]},
+    imageToPdf:{id:"imageToPdfForm",ep:"/image-to-pdf/",fn:"file",dn:".pdf"},
+    convertImgFormat:{id:"convertImgFormatForm",ep:"/convert-image-format/",fn:"file",extra:["format"],dn:"converted" }
+  };
+  const def = info[formKey]; if(!def) return;
+  const form=document.getElementById(def.id);
+  if(!form) return;
+  form.onsubmit = async e=>{
+    e.preventDefault();
+    const msgdiv=document.getElementById("msg_"+formKey); msgdiv.innerHTML = `<span class="processing">Processing...</span>`;
+    let fd = new FormData();
+    let fileInput = form[def.fn];
+    let files = fileInput && fileInput.files;
+    if(!files || files.length==0){ msgdiv.innerHTML=`<span class="error">Select file(s) required!</span>`; return;}
+    if(def.multi){ for(let i=0;i<files.length;i++) fd.append(def.fn,files[i]); }
+    else{ fd.append(def.fn, files[0]); }
+    if(def.extra){ for(let k of def.extra) fd.append(k, form[k].value);}
+    let extName = def.dn; if(def.dn && def.dn[0]==="."){ let n = files[0].name.replace(/\.[^/.]+$/,def.dn); extName=n;}
+    try{
+      let res = await fetch(API+def.ep,{method:"POST",body:fd});
+      if(res.ok){
+        let disp = res.headers.get('content-disposition')||'',
+            fname = disp.match(/filename="?([^"]+)"?/), downloadName = fname?fname[1]:extName;
+        let blob=await res.blob(); fileDownload(blob,downloadName);
+        msgdiv.innerHTML = `<span class="success">${downloadName} ready for download!</span>`;
+      }else{
+        let error; try{error=await res.json();}catch{} msgdiv.innerHTML=`<span class="error">${(error && error.detail)?error.detail:"Server error"} (${res.status})</span>`;
+      }
+    }catch(ex){
+      msgdiv.innerHTML = `<span class="error">Network error: ${ex.message}</span>`;
+    }
+  };
+}
 </script>
 </body>
 </html>
