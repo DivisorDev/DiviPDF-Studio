@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>DiviPDF Studio - All-in-one Free Tools</title>
+  <style>
+    body {
+      min-height: 100vh;
+      font-family: 'Segoe UI',Arial,sans-serif;
+      margin: 0;
+      background: linear-gradient(120deg, #222941 0%, #29405c 100%);
+      color: #e5f1fa;
+    }
+    header {
+      text-align: center;
+      padding: 42px 20px 12px 20px;
+    }
+    header h1 {
+      color: #54bfff;
+      letter-spacing: 2px;
+      font-size: 2.6rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+      text-shadow: 0 1px #000c;
+    }
+    header p {
+      margin: 0;
+      color: #738aad;
+      font-size: 1.11rem;
+    }
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 38px;
+      margin: 36px 0 25px 0;
+    }
+    .panel {
+      background:rgba(30,40,65,0.96);
+      border-radius: 12px;
+      min-width: 290px;
+      max-width: 350px;
+      padding: 24px 32px 32px;
+      box-shadow:0 0 28px #0005;
+      border: 0.5px solid #3d5c7c;
+    }
+    .panel h2 {
+      color: #68caff;
+      font-size: 1.25rem;
+      letter-spacing: 1.5px;
+      margin:0 0 12px 0;
+      font-weight: 600;
+      border-bottom: 1px solid #29406a;
+      padding-bottom: 6px;
+      text-align:center;
+    }
+    .tool-list {padding:0;margin:0 0 9px 0;}
+    .tool-list li {
+      list-style:none;
+      margin:18px 0;
+      text-align:left;
+    }
+    .tool-list a {
+      color:#fff;
+      text-decoration: none;
+      font-size:1.07em;
+      background:linear-gradient(90deg,#63d5ff 85%,#3089c7 100%);
+      background-size: 0 2px;
+      background-position: left bottom;
+      background-repeat: no-repeat;
+      transition: background-size 0.35s;
+      border-radius:4px;
+      padding:3px 5px;
+    }
+    .tool-list a:hover {
+      background-size: 100% 2px;
+      color: #44dbf3;
+    }
+    .form-modal-bg {
+      position:fixed;left:0;top:0;width:100vw;height:100vh;background:#000c;
+      z-index:9;display:flex;align-items:center;justify-content:center;
+    }
+    .modal-box {
+      background:#1e2340;
+      border-radius:14px;
+      padding:32px 28px;
+      color:#e1ecf5;
+      max-width:430px;
+      min-width: 310px;
+      box-shadow:0 6px 64px #0009;
+      position: relative;
+    }
+    .modal-title {font-size:1.3rem;color:#48d8ff;margin-bottom:16px;}
+    .modal-close {position:absolute;right:18px;top:15px;cursor:pointer;font-size:22px;color:#afdfff;background:none;border:none;}
+    .modal-box form {display:flex;flex-direction:column;font-size:1.07em}
+    .modal-box input[type="file"], .modal-box select, .modal-box input[type="number"] {
+      margin-bottom:16px;font-size:1.01em;padding:4px 7px;background:#242b4a;color:#eafff8;border-radius:4px;border: 1px solid #38507d;
+    }
+    .modal-box button{margin-top:7px;background:#38c2ff;color:#142435;font-weight:700;font-size:1.05em;border:0;border-radius:5px;padding:7px 0;cursor:pointer;box-shadow:0 1px #0004;}
+    .modal-box button:hover{background:#1b98d8;}
+    .msg {margin-top:10px;}
+    .success{background:#175a2b;color:#b6ffd7;padding:7px 8px 7px 8px;border-radius:5px;}
+    .error{background:#843646;color:#ffdeda;padding:7px 8px 7px 8px;border-radius:5px;}
+    .processing{background:#2b395c;color:#b7f4ff;padding:7px 8px 7px 8px;border-radius:5px;}
+    footer {
+      text-align:center;
+      font-size: 15px;
+      padding:12px 0 6px 0;
+      color:#82aed0;
+      background: linear-gradient(90deg,#294264 60%,#222941 100%);
+      border-top: 1.4px solid #315283;margin-top:44px;letter-spacing:.5px;
+    }
+    .branding { color: #3ee1ff; font-weight: 700;font-size:17px;}
+    .credits { color: #a5d2fc; font-size:14px; }
+    /* Responsive */
+    @media (max-width: 800px) { main { flex-direction:column; gap:18px;} .panel{max-width:99vw;} }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DiviPDF</h1>
+    <p>All-in-one Free PDF and Image Tools</p>
+  </header>
+  <main>
+    <div class="panel">
+      <h2>PDF Tools</h2>
+      <ul class="tool-list">
+        <li><a href="#" onclick="openModal('pdfToWord')">PDF to Word</a></li>
+        <li><a href="#" onclick="openModal('wordToPdf')">Word to PDF</a></li>
+        <li><a href="#" onclick="openModal('mergePdf')">Merge PDF</a></li>
+        <li><a href="#" onclick="openModal('compressPdf')">Compress PDF</a></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>Image Tools</h2>
+      <ul class="tool-list">
+        <li><a href="#" onclick="openModal('imageCompress')">Image Compress (JPG/PNG/WEBP)</a></li>
+        <li><a href="#" onclick="openModal('imageResize')">Image Resize (Custom Dimensions)</a></li>
+        <li><a href="#" onclick="openModal('imageToPdf')">Image to PDF</a></li>
+        <li><a href="#" onclick="openModal('convertImgFormat')">Convert Image Format (JPEG/PNG/WEBP)</a></li>
+        <li><a href="#" onclick="openModal('removeBackground')">Remove Background</a></li>
+        <li><a href="#" onclick="openModal('removeWatermark')">Watermark Remover</a></li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span class="branding">DiviPDF © 2025 - Powered by Divisor Studio</span> |
+    <span class="credits">Free. Fast. Reliable. Built With M Qasim’s Divisor.</span>
+  </footer>
+
+  <!-- Modal Forms (rendered dynamically) -->
+  <div id="modal-root"></div>
+
+<script>
+const API = 'https://divipdf-2.onrender.com';
+
+const toolFormHtml = {
+pdfToWord: {
+  title: "PDF to Word",
+  html: `<form data-ep="/pdf-to-word/" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".pdf" required>
+  <button>Convert PDF to Word</button>
+  <div class="msg"></div>
+  </form>`
+},
+wordToPdf: {
+  title: "Word to PDF",
+  html: `<form data-ep="/word-to-pdf/" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".doc,.docx" required>
+  <button>Convert Word to PDF</button>
+  <div class="msg"></div>
+  </form>`
+},
+mergePdf: {
+  title: "Merge PDF",
+  html: `<form data-ep="/merge-pdf/" enctype="multipart/form-data">
+  <input type="file" name="files" accept=".pdf" multiple required>
+  <button>Merge PDFs</button>
+  <div class="msg"></div>
+  </form>`
+},
+compressPdf: {
+  title: "Compress PDF",
+  html: `<form data-ep="/compress-pdf/" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".pdf" required>
+  <button>Compress PDF</button>
+  <div class="msg"></div>
+  </form>`
+},
+imageCompress: {
+  title: "Image Compress",
+  html: `<form data-ep="/image-compress/" enctype="multipart/form-data">
+  <input type="file" name="file" accept="image/*" required>
+  <button>Compress Image</button>
+  <div class="msg"></div>
+  </form>`
+},
+imageResize: {
+  title: "Image Resize",
+  html: `<form data-ep="/image-resize/" enctype="multipart/form-data">
+  <input type="file" name="file" accept="image/*" required><br>
+  Width: <input style="width:65px" type="number" name="width" value="800" required>
+  Height: <input style="width:65px" type="number" name="height" value="600" required>
+  <button>Resize Image</button>
+  <div class="msg"></div>
+  </form>`
+},
+imageToPdf: {
+  title: "Image to PDF",
+  html: `<form data-ep="/image-to-pdf/" enctype="multipart/form-data">
+  <input type="file" name="file" accept="image/*" required>
+  <button>Convert to PDF</button>
+  <div class="msg"></div>
+  </form>`
+},
+convertImgFormat: {
+  title: "Convert Image Format",
+  html: `<form data-ep="/convert-image-format/" enctype="multipart/form-data">
+  <input type="file" name="file" accept="image/*" required>
+  <label>Format:
+    <select name="format">
+      <option value="JPEG">JPEG</option>
+      <option value="PNG">PNG</option>
+      <option value="WEBP">WEBP</option>
+    </select>
+  </label>
+  <button>Convert</button>
+  <div class="msg"></div>
+  </form>`
+},
+removeWatermark: {
+  title: "Remove Watermark (Beta)",
+  html: `<form data-ep="/remove-watermark/" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".pdf" required>
+  <button>Remove Watermark</button>
+  <div class="msg"></div>
+  </form>`
+},
+removeBackground: {
+  title: "Remove Background (Coming Soon)",
+  html: `<form>
+  <input type="file" name="file" accept="image/*" disabled>
+  <button disabled>Remove Background</button>
+  <div class="msg">This feature will be available soon!</div>
+  </form>`
+}
+};
+
+function openModal(tool){
+  const modal = document.createElement('div');
+  modal.className = 'form-modal-bg';
+  modal.innerHTML = `<div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" title="Close">&times;</button>
+    <div class="modal-title">${toolFormHtml[tool].title}</div>
+    ${toolFormHtml[tool].html}
+  </div>`;
+  document.getElementById('modal-root').innerHTML = "";
+  document.getElementById('modal-root').appendChild(modal);
+  // Add logic for working forms:
+  const form = modal.querySelector('form');
+  if(form && form.dataset.ep){
+    form.onsubmit = async function(e){
+      e.preventDefault();
+      const msgbox = this.querySelector('.msg');
+      msgbox.innerHTML = '<span class="processing">Processing... Please wait</span>';
+      const formData = new FormData();
+      for(const el of this.elements){
+        if(el.type==="file" && el.files.length) formData.append(el.name, el.files.length>1?[...el.files]:el.files[0]);
+        else if(el.type!=="file" && el.name) formData.append(el.name, el.value);
+      }
+      try{
+        const opts={method:'POST',body:formData};
+        if(form.name==="files") opts.body = form.elements.files.files;
+        const res = await fetch(API + form.dataset.ep, opts);
+        if(res.ok){
+          const disposition = res.headers.get('content-disposition') || '';
+          let filename = (disposition.match(/filename="?(.+)"?$/)||[null,"outputfile"])[1];
+          const blob = await res.blob();
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          setTimeout(()=>{URL.revokeObjectURL(link.href);link.remove();},700);
+          msgbox.innerHTML = `<span class="success">✅ File downloaded!</span>`;
+        }else{
+          let errorMsg = "Server error";
+          try { let err = await res.json(); errorMsg = err.detail||errorMsg; } catch {}
+          msgbox.innerHTML = `<span class="error">${errorMsg}</span>`;
+        }
+      }catch(err){
+        msgbox.innerHTML = `<span class="error">Failed: ${err.message}</span>`;
+      }
+    };
+  }
+}
+
+function closeModal(){
+  document.getElementById('modal-root').innerHTML = "";
+}
+
+window.onclick = function(ev){
+  if(ev.target.className=="form-modal-bg") closeModal();
+};
+</script>
+</body>
+</html>
